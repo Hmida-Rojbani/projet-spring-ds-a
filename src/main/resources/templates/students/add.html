@@ -21,7 +21,7 @@
                     <h4 class="card-title">ADD STUDENT</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" novalidate th:action="@{/students/add}" th:object="${student}">
+                    <form method="post" novalidationte th:ac="@{/students/add}" th:object="${student}">
                         <div class="form-row">
                             <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('sid') ? 'has-danger' : ''}">
                                 <label class="bmd-label-floating" for="sid">Student Identifier</label>

@@ -4,4 +4,5 @@ import de.tekup.studentsabsence.entities.Image;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ImageRepository extends CrudRepository<Image, String> {
+    public Image findImageById(String id);
 }

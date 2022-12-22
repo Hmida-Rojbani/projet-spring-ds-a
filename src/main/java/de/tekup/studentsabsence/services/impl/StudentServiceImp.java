@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -37,12 +38,16 @@ public class StudentServiceImp implements StudentService {
     //TODO Complete this method
     @Override
     public Student updateStudent(Student student) {
-        return null;
+
+        return studentRepository.save(student);
     }
 
     //TODO Complete this method
     @Override
-    public Student deleteStudent(Long sid) {
-        return null;
+    public Optional<Student> deleteStudent(Long sid) {
+        Optional<Student> student1;
+        student1 = studentRepository.findById(sid);
+         studentRepository.deleteById(sid);
+         return student1;
     }
 }
