@@ -11,6 +11,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -40,5 +41,14 @@ public class Group {
     private List<Subject> subject;
 
 
+    @OneToMany(mappedBy = "group")
+    private Collection<GroupSubject> groupSubject;
 
+    public Collection<GroupSubject> getGroupSubject() {
+        return groupSubject;
+    }
+
+    public void setGroupSubject(Collection<GroupSubject> groupSubject) {
+        this.groupSubject = groupSubject;
+    }
 }
