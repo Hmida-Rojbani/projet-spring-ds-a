@@ -90,9 +90,13 @@ public class StudentController {
     }
 
     @PostMapping("/{sid}/add-image")
-    //TODO complete the parameters of this method
-    public String addImage() {
-        //TODO complete the body of this method
+
+    public String addImage(@Valid Student student, BindingResult bindingResult ) {
+       
+        if(bindingResult.hasErrors()) {
+            return "students/add-image";
+        }
+        studentService.addStudent(student);
         return "redirect:/students";
     }
 
@@ -107,5 +111,6 @@ public class StudentController {
             IOUtils.copy(inputStream, response.getOutputStream());
         }
     }
+
 
 }
