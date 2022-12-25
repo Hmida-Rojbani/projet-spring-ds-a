@@ -15,15 +15,19 @@ public class GroupSubject implements Serializable {
     @EmbeddedId
     private GroupSubjectKey id;
 
+
+
+    // relation many to one (GroupSubject ,group )
     @ManyToOne
-    @MapsId("group_id")
+    @MapsId("groupId")
     @JoinColumn(name = "group_id")
     private Group group;
-
+    // relation many to one (GroupSubject ,Subject )
     @ManyToOne
-    @MapsId("subject_id")
+    @MapsId("subjectId")
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
     private float hours;
+
 }

@@ -6,7 +6,6 @@ import de.tekup.studentsabsence.services.SubjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -18,7 +17,7 @@ public class SubjectServiceImp implements SubjectService {
     //TODO Complete this method
     @Override
     public List<Subject> getAllSubjects() {
-        return null;
+        return subjectRepository.findAll();
     }
 
     @Override
