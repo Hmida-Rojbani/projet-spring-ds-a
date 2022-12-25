@@ -1,5 +1,7 @@
 package de.tekup.studentsabsence.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +12,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,15 +25,38 @@ public class Student implements Serializable {
 
     @Id
     private Long sid;
+
+    @NotBlank(message = "firstName is required")
     private String firstName;
+
+    @NotBlank(message = "lastName is required")
     private String lastName;
+
+    @Email
+    @NotBlank(message = "Email is required")
     private String email;
+
+    @NotBlank(message = "Phone is required")
     private String phone;
+
     @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Past(message = "Should be a date in the past")
+    @NotNull(message = "Date of birth is required")
     private LocalDate dob;
 
     //TODO Complete Relations with other entities
 
+    @JsonBackReference
+    @ManyToOne
+    private Group group;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "student")
+    private List<Absence> absences;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 
 
 }
