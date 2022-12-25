@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">library_books</i>
+                    </div>
+                    <h4 class="card-title">SELECT A SUBJECT</h4>
+                </div>
+                <br>
+                <div class="card-body">
+                    <form th:action="@{/subjects/elimination}" th:method="post">
+                        <div class="form-row">
+                        <select id="subject-select" name="subjectId" class="selectpicker" data-style="select-with-transition" title="Choose Subject">
+                            <!-- retrieve list of subjects from database or service -->
+                            <th:block th:each="subject : ${subjects}">
+                                <option th:value="${subject.id}" th:text="${subject.name}"></option>
+                            </th:block>
+                        </select>
+                        <br>
+                        </div>
+                        <input class="btn btn-fill btn-primary" type="submit" value="Submit">
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>INDEX</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">person</i>
+                    </div>
+                    <h4 class="card-title">ELIMINATED STUDENTS</h4>
+                </div>
+                <div class="card-body">
+                    <div th:if="${subject}">
+                        <br>
+                        <h4 class="card-title" th:text="'You have selected the subject : ' + ${subject.name}">Low subject absence</h4>
+                        <br><br>
+                    </div>
+                    <div class="material-datatables">
+                        <table cellspacing="0" class="table table-striped table-no-bordered table-hover" id="datatables"
+                               style="width:100%" width="100%">
+                            <thead>
+                            <tr>
+                                <th>SID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Group</th>
+                                <th class="disabled-sorting text-right">Actions</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>SID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Group</th>
+                                <th class="disabled-sorting text-right">Actions</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each="student : ${eliminatedStudents}">
+                                <td th:text="${student.sid }"></td>
+                                <td th:text="${student.firstName }"></td>
+                                <td th:text="${student.lastName }"></td>
+                                <td th:text="${student.email }"></td>
+                                <td th:text="${student.group.name}"></td>
+                                <td class="text-right">
+                                    <a class="btn btn-link btn-warning btn-just-icon like" rel="tooltip" title="SEND EMAIL"
+                                       th:href="@{/students/{sid}/send-email (sid=${student.sid})}"><i class="material-icons">forward_to_inbox</i></a>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+    </div>
+</div>
+</body>
+</html>
