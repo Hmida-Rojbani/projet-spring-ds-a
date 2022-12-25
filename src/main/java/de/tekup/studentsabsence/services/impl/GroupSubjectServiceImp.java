@@ -19,6 +19,7 @@ import java.util.NoSuchElementException;
 public class GroupSubjectServiceImp implements GroupSubjectService {
     private final GroupSubjectRepository groupSubjectRepository;
     private final GroupService groupService;
+    //private final GroupSubjectService groupSubjectService;
 
     @Override
     public void addSubjectToGroup(Group group, Subject subject, float hours) {
@@ -38,9 +39,8 @@ public class GroupSubjectServiceImp implements GroupSubjectService {
 
     @Override
     public void deleteSubjectFromGroup(Long gid, Long sid) {
-        //TODO find a groupSubject by Group Id and Subject Id
-        GroupSubject groupSubject = null;
-
+        //TODO find a groupSubject by Group Id and Subject I
+        GroupSubject groupSubject= groupSubjectRepository.findAllByGroupId_AndAndSubjectId(gid,sid);
         groupSubjectRepository.delete(groupSubject);
     }
 

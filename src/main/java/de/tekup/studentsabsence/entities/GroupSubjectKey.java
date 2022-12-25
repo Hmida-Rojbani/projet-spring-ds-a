@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class GroupSubjectKey implements Serializable {
     @Column(name = "group_id")
-    private Long groupId ;
+    private Long group_id ;
     @Column(name = "subject_id")
-    private Long subjectId;
+    private Long subject_id;
 }

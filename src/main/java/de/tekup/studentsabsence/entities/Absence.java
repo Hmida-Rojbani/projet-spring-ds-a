@@ -1,5 +1,6 @@
 package de.tekup.studentsabsence.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,6 +30,12 @@ public class Absence implements Serializable {
     @Positive(message = "Should be positive")
     private float hours;
    //TODO Complete Relations with other entities
+   @ManyToOne
+   @JoinColumn(name = "student_sid")
+   private Student student;
 
 
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
 }
