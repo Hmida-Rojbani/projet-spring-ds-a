@@ -31,15 +31,17 @@ public class AbsenceServiceImp implements AbsenceService {
 
     @Override
     public List<Absence> getAllAbsencesByStudentId(Long sid) {
-        List<Absence> absences = new ArrayList<>();
         //TODO complete the missing instructions
+        /*DONE*/
+        List<Absence> absences = new ArrayList<>(absenceRepository.findAllByStudent_Sid(sid));
         return absences;
     }
 
     @Override
     public List<Absence> getAllAbsencesByStudentIdAndSubjectId(Long sid, Long id) {
-        List<Absence> absences = new ArrayList<>();
         //TODO complete the missing instructions
+        /*DONE*/
+        List<Absence> absences = new ArrayList<>(absenceRepository.findAllByStudent_SidAndSubject_Id(sid,id));
         return absences;
     }
 
@@ -85,9 +87,20 @@ public class AbsenceServiceImp implements AbsenceService {
         return countHours(absences);
     }
     //TODO Complete the countHours method
-    public float countHours(List<Absence> absences) {
-
-        return 0;
+    /*Done*/
+   public float countHours(List<Absence> absences) {
+        float countedHours=0;
+        for (int i=0; i<absences.size(); i++){
+            countedHours += absences.get(i).getHours();
+        }
+        return countedHours;
     }
-
+    @Override
+    public Long getSumSubjectAbsences(Long gid){
+        return absenceRepository.findSumHoursBySubject(gid);
+    }
+    @Override
+    public Long getSumMinSubjectAbsences(Long gid){
+        return absenceRepository.findSumMinHoursBySubject(gid);
+    }
 }

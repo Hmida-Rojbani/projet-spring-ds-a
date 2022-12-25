@@ -10,12 +10,14 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+
 @Entity
 @Data
 @ToString(exclude = "students")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "_group")
+@Table(name = "groupe")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +31,20 @@ public class Group {
     @NotNull(message = "Speciality is required")
     @Enumerated(EnumType.STRING)
     private SpecialityEnum speciality;
+
     //TODO Complete Relations with other entities
+    /*DONE*/
 
+    @OneToMany(mappedBy = "group")
+    private List<Student> students;
 
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "groups_subject",
+        joinColumns = @JoinColumn(
+            name = "subject_id",
+            referencedColumnName = "id"
+        )
+    )
+    private List<GroupSubject> groupSubjectList;
 }
