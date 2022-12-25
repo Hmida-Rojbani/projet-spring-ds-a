@@ -103,7 +103,7 @@ public class GroupController {
         model.addAttribute("group",groupService.getGroupById(id));
         model.addAttribute("subjects",subjectService.getAllSubjects());
         return "groups/add-subject";
-
+//this is a change for a new commit
     }
 
     @PostMapping("/{id}/add-subject")
