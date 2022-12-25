@@ -10,6 +10,9 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Data
 @ToString(exclude = "students")
@@ -30,6 +33,11 @@ public class Group {
     @Enumerated(EnumType.STRING)
     private SpecialityEnum speciality;
     //TODO Complete Relations with other entities
+
+    @OneToMany(mappedBy = "group")
+    private List<Student> students;
+    @OneToMany(mappedBy = "group")
+    private Set<GroupSubject> groupSubjects;
 
 
 

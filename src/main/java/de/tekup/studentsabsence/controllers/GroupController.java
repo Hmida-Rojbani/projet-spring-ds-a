@@ -1,9 +1,7 @@
 package de.tekup.studentsabsence.controllers;
 
 
-import de.tekup.studentsabsence.entities.Absence;
-import de.tekup.studentsabsence.entities.Group;
-import de.tekup.studentsabsence.entities.Student;
+import de.tekup.studentsabsence.entities.*;
 import de.tekup.studentsabsence.enums.LevelEnum;
 import de.tekup.studentsabsence.enums.SpecialityEnum;
 import de.tekup.studentsabsence.holders.GroupSubjectHolder;
@@ -140,7 +138,67 @@ public class GroupController {
     @PostMapping("/{id}/add-absences")
     public String addAbsence(@PathVariable long id, @Valid Absence absence, BindingResult bindingResult, @RequestParam(value = "students", required = false) List<Student> students, Model model) {
         //TODO Complete the body of this method
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("group", groupService.getGroupById(id));
+            model.addAttribute("students", groupService.getGroupById(id).getStudents());
+            model.addAttribute("subjects", subjectService.getAllSubjects());
+            model.addAttribute("absence", new Absence());
+            return "groups/add-absences";
+        }
+
+        if (students != null) {
+            students.forEach(student -> {
+                Absence abs = new Absence();
+                abs.setStartDate(absence.getStartDate());
+                abs.setHours(absence.getHours());
+                abs.setSubject(absence.getSubject());
+                abs.setStudent(student);
+                absenceService.addAbsence(abs);
+            });
+        }
         return "redirect:/groups/"+id+"/add-absences";
+    }
+
+    @GetMapping("/{id}/high")
+    public String showHighestAbsenceRate(@PathVariable Long id, Model model) {
+        List<GroupSubject> groupSubjects = groupSubjectService.getSubjectsByGroupId(id);
+        Subject highestAbsenceRateSubject = null;
+        float highestAbsenceRate = 0;
+
+
+        for (GroupSubject groupSubject : groupSubjects) {
+            Subject subject = groupSubject.getSubject();
+            float hours = groupSubject.getHours();
+            float absenceRate = absenceService.hoursCountByGroupAndSubject(id, subject.getId()) / hours;
+            if (absenceRate > highestAbsenceRate) {
+                highestAbsenceRate = absenceRate;
+                highestAbsenceRateSubject = subject;
+            }
+
+        }
+        model.addAttribute("highestAbsenceRateSubject", highestAbsenceRateSubject);
+
+        return "groups/high-absence";
+    }
+
+    @GetMapping("/{id}/low")
+    public String showLowestAbsenceRate(@PathVariable Long id, Model model) {
+        List<GroupSubject> groupSubjects = groupSubjectService.getSubjectsByGroupId(id);
+        Subject lowestAbsenceRateSubject = null;
+        float lowestAbsenceRate = Float.MAX_VALUE;
+        for (GroupSubject groupSubject : groupSubjects) {
+            Subject subject = groupSubject.getSubject();
+            float hours = groupSubject.getHours();
+            float absenceRate = absenceService.hoursCountByGroupAndSubject(id, subject.getId()) / hours;
+            if (absenceRate < lowestAbsenceRate) {
+                lowestAbsenceRate = absenceRate;
+                lowestAbsenceRateSubject = subject;
+            }
+        }
+
+        model.addAttribute("lowestAbsenceRateSubject", lowestAbsenceRateSubject);
+
+        return "groups/low-absence";
     }
 
 }

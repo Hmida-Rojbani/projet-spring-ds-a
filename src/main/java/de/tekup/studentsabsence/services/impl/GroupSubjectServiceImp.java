@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -39,9 +40,9 @@ public class GroupSubjectServiceImp implements GroupSubjectService {
     @Override
     public void deleteSubjectFromGroup(Long gid, Long sid) {
         //TODO find a groupSubject by Group Id and Subject Id
-        GroupSubject groupSubject = null;
-
-        groupSubjectRepository.delete(groupSubject);
+        Optional<GroupSubject> groupSubject = groupSubjectRepository.findByGroup_IdAndSubject_Id(gid, sid);
+        if (groupSubject.isPresent()) {
+            groupSubjectRepository.delete(groupSubject.get());
+        }
     }
-
 }
