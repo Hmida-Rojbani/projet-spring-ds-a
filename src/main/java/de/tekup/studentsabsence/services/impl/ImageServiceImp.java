@@ -18,8 +18,9 @@ public class ImageServiceImp implements ImageService {
 
     //TODO Complete this method
     @Override
-    public Image getImage(String id) {
-        return null;
+
+    public Image getImage(String id) throws Exception {
+        return imageRepository.findById(id).orElseThrow(()-> new Exception("id="+id +"error")) ;
     }
 
     @Override

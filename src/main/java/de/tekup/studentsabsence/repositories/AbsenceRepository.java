@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface AbsenceRepository extends CrudRepository<Absence, Long> {
-    List<Absence> findAllByStudent_Group_Id(Long id);
-    List<Absence> findAllByStudent_Sid(Long sid);
-    List<Absence> findAllByStudent_SidAndSubject_Id(Long sid, Long id);
-    List<Absence> findAllByStudent_Group_IdAndSubject_Id(Long gid, Long id);
+    List<Absence> findAllByStudent(Long id);
+    List<Absence> findAllByStudentSid(Long sid);
+    List<Absence> findAllByStudentSidAndSubjectId(Long sid, Long id);
+    List<Absence> findAllByStudentAndSubjectId(Long gid, Long id);
 }

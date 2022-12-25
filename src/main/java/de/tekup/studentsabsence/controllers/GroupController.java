@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/groups")
@@ -46,7 +47,7 @@ public class GroupController {
 
     @PostMapping("/add")
     public String add(@Valid Group group, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("levels", LevelEnum.values());
             model.addAttribute("specialities", SpecialityEnum.values());
             return "groups/add";
@@ -57,7 +58,7 @@ public class GroupController {
     }
 
     @GetMapping("/{id}/update")
-    public String updateView(@PathVariable long id,  Model model) {
+    public String updateView(@PathVariable long id, Model model) {
         model.addAttribute("levels", LevelEnum.values());
         model.addAttribute("specialities", SpecialityEnum.values());
         model.addAttribute("group", groupService.getGroupById(id));
@@ -66,7 +67,7 @@ public class GroupController {
 
     @PostMapping("/{id}/update")
     public String update(@PathVariable long id, @Valid Group group, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("levels", LevelEnum.values());
             model.addAttribute("specialities", SpecialityEnum.values());
             return "groups/update";
@@ -86,8 +87,8 @@ public class GroupController {
         Group group = groupService.getGroupById(id);
 
         model.addAttribute("group", group);
-        model.addAttribute("groupSubjects",groupSubjectService.getSubjectsByGroupId(id));
-        model.addAttribute("students",group.getStudents());
+        model.addAttribute("groupSubjects", groupSubjectService.getSubjectsByGroupId(id));
+        model.addAttribute("students", group.getStudents());
         model.addAttribute("absenceService", absenceService);
 
         group.getStudents().forEach(student -> {
@@ -98,31 +99,31 @@ public class GroupController {
     }
 
     @GetMapping("/{id}/add-subject")
-    public String addSubjectView(Model model , @PathVariable Long id){
+    public String addSubjectView(Model model, @PathVariable Long id) {
         model.addAttribute("groupSubjectHolder", new GroupSubjectHolder());
-        model.addAttribute("group",groupService.getGroupById(id));
-        model.addAttribute("subjects",subjectService.getAllSubjects());
+        model.addAttribute("group", groupService.getGroupById(id));
+        model.addAttribute("subjects", subjectService.getAllSubjects());
         return "groups/add-subject";
 
     }
 
     @PostMapping("/{id}/add-subject")
-    public String addSubject(@PathVariable Long id, @Valid GroupSubjectHolder groupSubjectHolder, BindingResult bindingResult, Model model){
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("group",groupService.getGroupById(id));
-            model.addAttribute("subjects",subjectService.getAllSubjects());
+    public String addSubject(@PathVariable Long id, @Valid GroupSubjectHolder groupSubjectHolder, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("group", groupService.getGroupById(id));
+            model.addAttribute("subjects", subjectService.getAllSubjects());
             return "groups/add-subject";
         }
 
         Group group = groupService.getGroupById(id);
         groupSubjectService.addSubjectToGroup(group, groupSubjectHolder.getSubject(), groupSubjectHolder.getHours());
-        return "redirect:/groups/"+id+"/add-subject";
+        return "redirect:/groups/" + id + "/add-subject";
     }
 
     @GetMapping("/{gid}/subject/{sid}/delete")
-    public String deleteSubject(@PathVariable Long gid, @PathVariable Long sid){
+    public String deleteSubject(@PathVariable Long gid, @PathVariable Long sid) {
         groupSubjectService.deleteSubjectFromGroup(gid, sid);
-        return "redirect:/groups/"+gid+"/show";
+        return "redirect:/groups/" + gid + "/show";
     }
 
     @GetMapping("/{id}/add-absences")
@@ -137,10 +138,27 @@ public class GroupController {
         return "groups/add-absences";
     }
 
+    //  @PostMapping("/{id}/add-absences")
+    //  public String addAbsence(@PathVariable long id, @Valid Absence absence, BindingResult bindingResult, @RequestParam(value = "students", required = false) List<Student> students, Model model) {
+    //TODO Complete the body of this method
+    //      return "redirect:/groups/"+id+"/add-absences";
+    //  }
+
     @PostMapping("/{id}/add-absences")
     public String addAbsence(@PathVariable long id, @Valid Absence absence, BindingResult bindingResult, @RequestParam(value = "students", required = false) List<Student> students, Model model) {
-        //TODO Complete the body of this method
-        return "redirect:/groups/"+id+"/add-absences";
-    }
 
-}
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("group", groupService.getGroupById(id));
+            model.addAttribute("subjects", groupService.getGroupById(id).getSubjects());
+            model.addAttribute("students", groupService.getGroupById(id).getStudents());
+
+            return "groups/add-absences";
+        }
+        for (Student student : students
+        ) {
+            absence.setStudent(student);
+            absenceService.addAbsence(absence);
+        }
+        return "redirect:/groups/" + id + "/add-absences";
+    }}
