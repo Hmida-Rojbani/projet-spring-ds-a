@@ -1,5 +1,6 @@
 package de.tekup.studentsabsence.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import de.tekup.studentsabsence.enums.LevelEnum;
 import de.tekup.studentsabsence.enums.SpecialityEnum;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,12 @@ public class Group {
     @Enumerated(EnumType.STRING)
     private SpecialityEnum speciality;
     //TODO Complete Relations with other entities
+    @JsonBackReference
+    @OneToMany(mappedBy = "group")
+    private List<Student> student;
+
+    @ManyToMany
+    private List<Subject> subjects;
 
 
 

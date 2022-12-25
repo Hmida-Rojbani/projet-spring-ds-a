@@ -1,5 +1,7 @@
 package de.tekup.studentsabsence.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import de.tekup.studentsabsence.services.StudentService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,10 @@ public class Absence implements Serializable {
     @Positive(message = "Should be positive")
     private float hours;
    //TODO Complete Relations with other entities
-
+    @JsonBackReference
+    @ManyToOne
+    private Student student;
+    @ManyToOne
+    private Subject subject;
 
 }
