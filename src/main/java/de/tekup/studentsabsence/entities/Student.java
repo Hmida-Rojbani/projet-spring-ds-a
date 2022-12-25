@@ -39,6 +39,7 @@ public class Student implements Serializable {
     @OneToMany(mappedBy = "student")
     List<Absence> absences;
 
+
     @OneToOne
     private Image image;
 

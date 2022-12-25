@@ -27,6 +27,8 @@ public class Absence implements Serializable {
     @NotNull(message = "Hours is required")
     @Positive(message = "Should be positive")
     private float hours;
+
+
     @ManyToOne
     private Student  student;
 

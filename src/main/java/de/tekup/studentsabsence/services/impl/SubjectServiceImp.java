@@ -17,6 +17,7 @@ public class SubjectServiceImp implements SubjectService {
     private final SubjectRepository subjectRepository;
 
 
+
     @Override
     public List<Subject> getAllSubjects() {
 

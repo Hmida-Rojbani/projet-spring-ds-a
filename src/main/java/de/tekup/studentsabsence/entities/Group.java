@@ -32,6 +32,7 @@ public class Group {
     @Enumerated(EnumType.STRING)
     private SpecialityEnum speciality;
 
+
     @OneToMany(mappedBy = "group")
     List<Student> students;
 
