@@ -34,21 +34,11 @@ public class Group {
     @Enumerated(EnumType.STRING)
     private SpecialityEnum speciality;
     //TODO Complete Relations with other entities
-    @JsonManagedReference
-    @OneToMany
-    private List<Student> Students;
-    @ManyToMany
-    private List<Subject> subject;
-
+    @OneToMany(mappedBy = "group")
+    private List<Student> students;
 
     @OneToMany(mappedBy = "group")
-    private Collection<GroupSubject> groupSubject;
+    private List<GroupSubject> groupSubjects;
 
-    public Collection<GroupSubject> getGroupSubject() {
-        return groupSubject;
-    }
 
-    public void setGroupSubject(Collection<GroupSubject> groupSubject) {
-        this.groupSubject = groupSubject;
-    }
 }

@@ -88,11 +88,12 @@ public class AbsenceServiceImp implements AbsenceService {
     }
     //TODO Complete the countHours method
     public float countHours(List<Absence> absences) {
-         float t = 0;
-        for (Absence absence : absences) {
-            t=t+absence.getHours();
+
+        float nb_hours=0;
+        for(Absence absence : absences){
+            nb_hours+=absence.getHours();
         }
-        return t;
+        return nb_hours;
     }
 
 }

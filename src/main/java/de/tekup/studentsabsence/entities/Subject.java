@@ -19,10 +19,9 @@ public class Subject implements Serializable {
     private Long id;
     @NotBlank(message = "Name is required")
     private String name;
-    @OneToOne
-    private Absence absence;
-    @ManyToMany
-    private List<Group> group;
+
+    @OneToMany(mappedBy = "subject")
+    private List<Absence> absences;
 
 
 
