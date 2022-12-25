@@ -1,8 +1,10 @@
 package de.tekup.studentsabsence.controllers;
 
+import de.tekup.studentsabsence.entities.Absence;
 import de.tekup.studentsabsence.entities.Subject;
 import de.tekup.studentsabsence.services.SubjectService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -73,5 +76,16 @@ public class SubjectController {
         return "subjects/show";
     }
 
+     @GetMapping("/stat")
+    public String get(Model model) {
+
+      List<String> nameList= subjectService.getAllSubjects().stream().map(x->x.getName()).collect(Collectors.toList());
+       List<Long> absenceList = subjectService.getAllSubjects().stream().map(x-> x.getId()).collect(Collectors.toList());
+     // List<Absence> absenceList = subjectService.getAllSubjects().stream().map(x-> x.getAbsence()).collect(Collectors.toList());
+         // /List<String> absenceList = subjectService.getAllSubjects().stream().map(x-> x.getAbsence().getStudent().getFirstName()).collect(Collectors.toList());
+         model.addAttribute("name", nameList);
+      model.addAttribute("id", absenceList);
+         return "stat";
+     }
 
 }

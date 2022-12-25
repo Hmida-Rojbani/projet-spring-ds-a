@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface ImageService {
-    Image getImage(String id);
+    Image getImage(String id) throws Exception;
 
     Image addImage(MultipartFile image) throws IOException;
 }
