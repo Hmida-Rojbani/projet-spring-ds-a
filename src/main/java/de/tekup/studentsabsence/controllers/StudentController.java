@@ -90,9 +90,16 @@ public class StudentController {
     }
 
     @PostMapping("/{sid}/add-image")
-    //TODO complete the parameters of this method
-    public String addImage() {
-        //TODO complete the body of this method
+    public String addImage(@PathVariable Long sid, MultipartFile image) {
+        Student student = studentService.getStudentBySid(sid);
+        try {
+            Image img = imageService.addImage(image);
+            System.out.println(" Image " + img.toString());
+            student.setImage(img);
+        }catch (Exception e){
+            System.out.println(" Error " + e);
+            return "students/add-image";
+        }
         return "redirect:/students";
     }
 

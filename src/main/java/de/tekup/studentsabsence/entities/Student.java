@@ -10,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -17,9 +19,8 @@ import java.time.LocalDate;
 @ToString(exclude = {"image","group","absences"})
 public class Student implements Serializable {
     //TODO Complete Validations of fields
-
-
     @Id
+    //@Column(unique=true)
     private Long sid;
     private String firstName;
     private String lastName;
@@ -27,8 +28,15 @@ public class Student implements Serializable {
     private String phone;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dob;
-
-    //TODO Complete Relations with other entities
+    @OneToOne
+    @JoinColumn(name = "image_id")
+    private Image image;
+    @ManyToOne
+    //@MapsId("group_id")
+    @JoinColumn(name = "group_id")
+    private Group group;
+    @OneToMany(mappedBy = "student")
+    private List<Absence> absences;
 
 
 
