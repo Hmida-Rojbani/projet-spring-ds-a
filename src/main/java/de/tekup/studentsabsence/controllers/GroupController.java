@@ -1,6 +1,4 @@
 package de.tekup.studentsabsence.controllers;
-
-
 import de.tekup.studentsabsence.entities.Absence;
 import de.tekup.studentsabsence.entities.Group;
 import de.tekup.studentsabsence.entities.Student;
@@ -9,7 +7,7 @@ import de.tekup.studentsabsence.enums.SpecialityEnum;
 import de.tekup.studentsabsence.holders.GroupSubjectHolder;
 import de.tekup.studentsabsence.services.AbsenceService;
 import de.tekup.studentsabsence.services.GroupService;
-import de.tekup.studentsabsence.services.GroupSubjectService;
+import de.tekup.studentsabsence.services.GroupSubService;
 import de.tekup.studentsabsence.services.SubjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,8 +24,9 @@ import java.util.List;
 public class GroupController {
     private final GroupService groupService;
     private final SubjectService subjectService;
-    private final GroupSubjectService groupSubjectService;
+    private final GroupSubService groupSubjectService;
     private final AbsenceService absenceService;
+
 
     @GetMapping({"", "/"})
     public String index(Model model) {
@@ -45,7 +44,7 @@ public class GroupController {
     }
 
     @PostMapping("/add")
-    public String add(@Valid Group group, BindingResult bindingResult, Model model) {
+    public String add(@Valid @ModelAttribute("group") Group group, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("levels", LevelEnum.values());
             model.addAttribute("specialities", SpecialityEnum.values());
@@ -89,7 +88,6 @@ public class GroupController {
         model.addAttribute("groupSubjects",groupSubjectService.getSubjectsByGroupId(id));
         model.addAttribute("students",group.getStudents());
         model.addAttribute("absenceService", absenceService);
-
         group.getStudents().forEach(student -> {
 
         });
@@ -139,8 +137,22 @@ public class GroupController {
 
     @PostMapping("/{id}/add-absences")
     public String addAbsence(@PathVariable long id, @Valid Absence absence, BindingResult bindingResult, @RequestParam(value = "students", required = false) List<Student> students, Model model) {
-        //TODO Complete the body of this method
+        //TODO  method add-abscences (executable)
+
+        if(bindingResult.hasErrors())
+        {
+            return "groups/add-absences";
+        }
+        if(!students.isEmpty()){
+            for(int i=0; i<students.size(); i++){
+                Absence abs=new Absence();
+                abs.setHours(absence.getHours());
+                abs.setStudent(students.get(i));
+                abs.setSubject(absence.getSubject());
+                abs.setStartDate(absence.getStartDate());
+                absenceService.addAbsence(abs); }}
         return "redirect:/groups/"+id+"/add-absences";
     }
+
 
 }
