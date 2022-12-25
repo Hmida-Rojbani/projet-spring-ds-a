@@ -7,9 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Data
 @ToString(exclude = "students")
@@ -31,6 +35,11 @@ public class Group {
     private SpecialityEnum speciality;
     //TODO Complete Relations with other entities
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "group")
+    private List<Student> students;
 
+    @ManyToMany
+    private List<Subject> subjects;
 
 }

@@ -8,8 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,5 +24,10 @@ public class Subject implements Serializable {
     private Long id;
     @NotBlank(message = "Name is required")
     private String name;
+    @OneToOne
+    private Absence absence;
+
+    @ManyToMany
+    private List<Group> groups;
 
 }
