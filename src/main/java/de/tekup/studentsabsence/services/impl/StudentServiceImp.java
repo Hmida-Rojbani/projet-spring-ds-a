@@ -2,6 +2,7 @@ package de.tekup.studentsabsence.services.impl;
 
 import de.tekup.studentsabsence.entities.Student;
 import de.tekup.studentsabsence.repositories.StudentRepository;
+import de.tekup.studentsabsence.repositories.SubjectRepository;
 import de.tekup.studentsabsence.services.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.NoSuchElementException;
 @AllArgsConstructor
 public class StudentServiceImp implements StudentService {
     private final StudentRepository studentRepository;
+    private final SubjectRepository subjectRepository;
 
     @Override
     public List<Student> getAllStudents() {
@@ -37,12 +39,14 @@ public class StudentServiceImp implements StudentService {
     //TODO Complete this method
     @Override
     public Student updateStudent(Student student) {
-        return null;
+        return studentRepository.save(student);
     }
 
     //TODO Complete this method
     @Override
     public Student deleteStudent(Long sid) {
-        return null;
+        Student student = getStudentBySid(sid);
+        studentRepository.delete(student);
+        return (student);
     }
 }
