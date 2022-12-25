@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class AbsenceServiceImp implements AbsenceService {
     @Override
     public List<Absence> getAllAbsencesByGroupId(Long id) {
         List<Absence> absences = new ArrayList<>();
-        absenceRepository.findAllByStudent_Group_Id(id).forEach(absences::add);
+        absenceRepository.findAllByStudent(id).forEach(absences::add);
         return absences;
     }
 
@@ -33,6 +34,7 @@ public class AbsenceServiceImp implements AbsenceService {
     public List<Absence> getAllAbsencesByStudentId(Long sid) {
         List<Absence> absences = new ArrayList<>();
         //TODO complete the missing instructions
+        absenceRepository.findAllByStudentSid(sid).forEach(absences::add);
         return absences;
     }
 
@@ -40,13 +42,14 @@ public class AbsenceServiceImp implements AbsenceService {
     public List<Absence> getAllAbsencesByStudentIdAndSubjectId(Long sid, Long id) {
         List<Absence> absences = new ArrayList<>();
         //TODO complete the missing instructions
+        absenceRepository.findAllByStudentAndSubjectId(sid,id).forEach(absences::add);
         return absences;
     }
 
     @Override
     public List<Absence> getAllAbsencesByGroupIdAndSubjectId(Long gid, Long id) {
         List<Absence> absences = new ArrayList<>();
-        absenceRepository.findAllByStudent_Group_IdAndSubject_Id(gid, id).forEach(absences::add);
+        absenceRepository.findAllByStudentSidAndSubjectId(gid, id).forEach(absences::add);
         return absences;
     }
 
@@ -86,8 +89,13 @@ public class AbsenceServiceImp implements AbsenceService {
     }
     //TODO Complete the countHours method
     public float countHours(List<Absence> absences) {
-
-        return 0;
+        float compteur= 0;
+        for (Absence absence:absences
+        ) {
+            compteur += absence.getHours();
+        }
+        System.out.println(compteur);
+        return compteur;
     }
 
 }
