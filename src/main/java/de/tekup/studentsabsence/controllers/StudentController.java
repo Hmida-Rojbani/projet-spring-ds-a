@@ -89,6 +89,7 @@ public class StudentController {
         return "students/add-image";
     }
 
+
     @PostMapping("/{sid}/add-image")
 
     public String addImage(@Valid Student student, BindingResult bindingResult ) {

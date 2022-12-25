@@ -92,5 +92,4 @@ public class AbsenceServiceImp implements AbsenceService {
         absences = getAllAbsences() ;
         return countHours(absences);
     }
-
 }

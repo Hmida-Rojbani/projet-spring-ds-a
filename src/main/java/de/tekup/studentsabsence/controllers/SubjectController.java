@@ -44,6 +44,7 @@ public class SubjectController {
         return "redirect:/subjects";
     }
 
+
     @GetMapping("/{id}/update")
     public String updateView(@PathVariable Long id, Model model) {
         model.addAttribute("subject", subjectService.getSubjectById(id));

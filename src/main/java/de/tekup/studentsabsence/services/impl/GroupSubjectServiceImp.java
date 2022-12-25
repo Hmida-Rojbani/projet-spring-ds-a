@@ -36,7 +36,6 @@ public class GroupSubjectServiceImp implements GroupSubjectService {
         return new ArrayList<>(groupSubjectRepository.findAllByGroup(group));
     }
 
-
     @Override
     public void deleteSubjectFromGroup(Long gid, Long sid) {
         GroupSubject groupSubject = (GroupSubject) getSubjectsByGroupId(gid);

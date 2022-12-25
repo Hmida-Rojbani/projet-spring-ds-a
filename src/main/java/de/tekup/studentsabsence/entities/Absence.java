@@ -29,6 +29,7 @@ public class Absence implements Serializable {
     private float hours;
 
 
+
     @ManyToOne
     private Student  student;
 

@@ -137,6 +137,7 @@ public class GroupController {
         return "groups/add-absences";
     }
 
+
     @PostMapping("/{id}/add-absences")
     public String addAbsence(@PathVariable long id, @Valid Absence absence, BindingResult bindingResult, @RequestParam(value = "students", required = false) List<Student> students, Model model) {
 

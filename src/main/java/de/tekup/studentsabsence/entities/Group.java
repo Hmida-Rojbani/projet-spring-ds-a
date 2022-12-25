@@ -33,6 +33,7 @@ public class Group {
     private SpecialityEnum speciality;
 
 
+
     @OneToMany(mappedBy = "group")
     List<Student> students;
 
