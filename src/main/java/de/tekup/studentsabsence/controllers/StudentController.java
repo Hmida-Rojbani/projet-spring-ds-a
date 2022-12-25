@@ -2,9 +2,11 @@ package de.tekup.studentsabsence.controllers;
 
 import de.tekup.studentsabsence.entities.Image;
 import de.tekup.studentsabsence.entities.Student;
+import de.tekup.studentsabsence.repositories.ImageRepository;
 import de.tekup.studentsabsence.services.GroupService;
 import de.tekup.studentsabsence.services.ImageService;
 import de.tekup.studentsabsence.services.StudentService;
+import de.tekup.studentsabsence.services.impl.EmailServiceImp;
 import lombok.AllArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,10 @@ public class StudentController {
     private final StudentService studentService;
     private final GroupService groupService;
     private final ImageService imageService;
+    private final ImageRepository imageRepository;
+    private final EmailServiceImp emailServiceImp;
+
+
 
     @GetMapping({"", "/"})
     public String index(Model model) {
@@ -91,8 +97,10 @@ public class StudentController {
 
     @PostMapping("/{sid}/add-image")
     //TODO complete the parameters of this method
-    public String addImage() {
+    public String addImage(@PathVariable Long sid, @RequestParam("image") MultipartFile image) throws IOException {
         //TODO complete the body of this method
+        Image img = imageService.addImage(image, sid);
+        imageRepository.save(img);
         return "redirect:/students";
     }
 
@@ -106,6 +114,13 @@ public class StudentController {
             InputStream inputStream = new ByteArrayInputStream(image.getData());
             IOUtils.copy(inputStream, response.getOutputStream());
         }
+    }
+
+    @GetMapping("/{sid}/send-email")
+    public String sendEmail(@PathVariable Long sid) {
+        Student student = studentService.getStudentBySid(sid);
+        emailServiceImp.sendEmail(student.getEmail(), "Absence Notification", "You have been absent more than 7 hours. Please contact the administration.");
+        return "redirect:/subjects/eliminated-students";
     }
 
 }
