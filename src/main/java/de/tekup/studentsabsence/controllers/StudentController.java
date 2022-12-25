@@ -89,15 +89,22 @@ public class StudentController {
         return "students/add-image";
     }
 
+
     @PostMapping("/{sid}/add-image")
-    //TODO complete the parameters of this method
-    public String addImage() {
-        //TODO complete the body of this method
+
+    public String addImage(@Valid Student student, BindingResult bindingResult ) {
+       
+        if(bindingResult.hasErrors()) {
+            return "students/add-image";
+        }
+        studentService.addStudent(student);
         return "redirect:/students";
     }
 
+
     @RequestMapping(value = "/{sid}/display-image")
     public void getStudentPhoto(HttpServletResponse response, @PathVariable("sid") long sid) throws Exception {
+
         Student student = studentService.getStudentBySid(sid);
         Image image = student.getImage();
 
@@ -107,5 +114,6 @@ public class StudentController {
             IOUtils.copy(inputStream, response.getOutputStream());
         }
     }
+
 
 }
