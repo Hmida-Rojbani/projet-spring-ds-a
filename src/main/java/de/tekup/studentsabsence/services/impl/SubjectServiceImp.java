@@ -19,6 +19,7 @@ public class SubjectServiceImp implements SubjectService {
     @Override
     public List<Subject> getAllSubjects() {
         return null;
+        return (List<Subject>) subjectRepository.findAll();
     }
 
     @Override
