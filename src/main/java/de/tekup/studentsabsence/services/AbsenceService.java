@@ -28,4 +28,7 @@ public interface AbsenceService {
     float hoursCountByStudentAndSubject(Long sid, Long id);
 
     float countHours(List<Absence> absences);
+
+    Long getSumSubjectAbsences(Long gid);
+    Long getSumMinSubjectAbsences(Long gid);
 }

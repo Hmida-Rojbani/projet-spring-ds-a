@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,9 +17,13 @@ public class ImageServiceImp implements ImageService {
     private final ImageRepository imageRepository;
 
     //TODO Complete this method
+    /*DONE*/
     @Override
-    public Image getImage(String id) {
-        return null;
+    public Optional<Image> getImage(String id) {
+         return Optional.ofNullable(imageRepository.findById(id)
+                 .orElseThrow(() ->
+                    new IllegalArgumentException("Image not found with specific id")
+                ));
     }
 
     @Override
