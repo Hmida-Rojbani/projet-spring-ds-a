@@ -12,18 +12,21 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GroupSubject implements Serializable {
-    @EmbeddedId
-    private GroupSubjectKey id;
 
-    @ManyToOne
-    @MapsId("group_id")
-    @JoinColumn(name = "group_id")
-    private Group group;
+	private static final long serialVersionUID = 1L;
 
-    @ManyToOne
-    @MapsId("subject_id")
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
+	@EmbeddedId
+	private GroupSubjectKey id;
 
-    private float hours;
+	@ManyToOne
+	@MapsId("group_id")
+	@JoinColumn(name = "group_id")
+	private Group group;
+
+	@ManyToOne
+	@MapsId("subject_id")
+	@JoinColumn(name = "subject_id")
+	private Subject subject;
+
+	private float hours;
 }
