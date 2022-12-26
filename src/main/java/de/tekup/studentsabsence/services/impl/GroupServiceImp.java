@@ -1,6 +1,7 @@
 package de.tekup.studentsabsence.services.impl;
 
 import de.tekup.studentsabsence.entities.Group;
+import de.tekup.studentsabsence.entities.Student;
 import de.tekup.studentsabsence.repositories.GroupRepository;
 import de.tekup.studentsabsence.services.GroupService;
 import lombok.AllArgsConstructor;
@@ -46,4 +47,5 @@ public class GroupServiceImp implements GroupService {
         groupRepository.delete(group);
         return group;
     }
+
 }

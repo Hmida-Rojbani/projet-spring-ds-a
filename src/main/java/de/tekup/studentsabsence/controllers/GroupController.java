@@ -87,10 +87,10 @@ public class GroupController {
 
         model.addAttribute("group", group);
         model.addAttribute("groupSubjects",groupSubjectService.getSubjectsByGroupId(id));
-        model.addAttribute("students",group.getStudents());
+        model.addAttribute("students",group.getStudent());
         model.addAttribute("absenceService", absenceService);
 
-        group.getStudents().forEach(student -> {
+        group.getStudent().forEach(student -> {
 
         });
 
@@ -132,14 +132,22 @@ public class GroupController {
         model.addAttribute("group", group);
         model.addAttribute("absence", new Absence());
         model.addAttribute("groupSubjects", groupSubjectService.getSubjectsByGroupId(id));
-        model.addAttribute("students", group.getStudents());
+        model.addAttribute("students", group.getStudent());
 
         return "groups/add-absences";
     }
 
     @PostMapping("/{id}/add-absences")
     public String addAbsence(@PathVariable long id, @Valid Absence absence, BindingResult bindingResult, @RequestParam(value = "students", required = false) List<Student> students, Model model) {
-        //TODO Complete the body of this method
+    	  if(bindingResult.hasErrors()) {
+    		
+    	        model.addAttribute("absence", new Absence());
+    	        model.addAttribute("groupSubjects", groupSubjectService.getSubjectsByGroupId(id));
+    	        return "groups/add-absences";
+    		  
+    	  }
+    	 
+    	  absenceService.addAbsence(absence);
         return "redirect:/groups/"+id+"/add-absences";
     }
 

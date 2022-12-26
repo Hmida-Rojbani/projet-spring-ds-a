@@ -10,16 +10,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class ImageServiceImp implements ImageService {
     private final ImageRepository imageRepository;
 
-    //TODO Complete this method
+    
     @Override
-    public Image getImage(String id) {
-        return null;
+    public Optional<Image> getImage(String id) {
+    	
+       
+        return imageRepository.findById(id);
     }
 
     @Override

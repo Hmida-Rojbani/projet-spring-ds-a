@@ -6,7 +6,14 @@ import de.tekup.studentsabsence.services.GroupService;
 import de.tekup.studentsabsence.services.ImageService;
 import de.tekup.studentsabsence.services.StudentService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import mail.MyConstants;
+
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,11 +29,13 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
+
 @RequestMapping("/students")
 public class StudentController {
     private final StudentService studentService;
     private final GroupService groupService;
     private final ImageService imageService;
+    
 
     @GetMapping({"", "/"})
     public String index(Model model) {
@@ -41,6 +50,8 @@ public class StudentController {
         model.addAttribute("groups", groupService.getAllGroups());
         return "students/add";
     }
+
+
 
     @PostMapping("/add")
     public String add(@Valid Student student, BindingResult bindingResult, Model model) {
@@ -90,9 +101,9 @@ public class StudentController {
     }
 
     @PostMapping("/{sid}/add-image")
-    //TODO complete the parameters of this method
-    public String addImage() {
-        //TODO complete the body of this method
+   
+    public String addImage(MultipartFile image) throws IOException {
+    	imageService.addImage(image);
         return "redirect:/students";
     }
 
@@ -107,5 +118,7 @@ public class StudentController {
             IOUtils.copy(inputStream, response.getOutputStream());
         }
     }
+
+
 
 }

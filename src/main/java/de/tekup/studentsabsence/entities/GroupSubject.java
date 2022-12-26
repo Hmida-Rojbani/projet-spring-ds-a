@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+@Entity(name="group_subject")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -6,10 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
@@ -28,7 +31,14 @@ public class Student implements Serializable {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dob;
 
-    //TODO Complete Relations with other entities
+ 
+    @OneToOne(cascade = CascadeType.ALL )
+    private Image image;
+    @ManyToOne
+    private Group group;
+    @OneToMany
+    private List<Absence> abs;
+    
 
 
 

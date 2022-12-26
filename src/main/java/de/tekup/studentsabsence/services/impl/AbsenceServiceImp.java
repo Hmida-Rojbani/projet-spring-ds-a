@@ -32,14 +32,14 @@ public class AbsenceServiceImp implements AbsenceService {
     @Override
     public List<Absence> getAllAbsencesByStudentId(Long sid) {
         List<Absence> absences = new ArrayList<>();
-        //TODO complete the missing instructions
+        absenceRepository.findAllByStudent_Sid(sid);
         return absences;
     }
 
     @Override
     public List<Absence> getAllAbsencesByStudentIdAndSubjectId(Long sid, Long id) {
         List<Absence> absences = new ArrayList<>();
-        //TODO complete the missing instructions
+        absenceRepository.findAllByStudent_SidAndSubject_Id(sid, id);
         return absences;
     }
 
@@ -82,12 +82,20 @@ public class AbsenceServiceImp implements AbsenceService {
     @Override
     public float hoursCountByStudentAndSubject(Long sid, Long id) {
         List<Absence> absences = getAllAbsencesByStudentIdAndSubjectId(sid, id);
-        return countHours(absences);
+        return countHours(absences,sid,id);
     }
     //TODO Complete the countHours method
-    public float countHours(List<Absence> absences) {
-
-        return 0;
+    public float countHours(List<Absence> absences,Long sid,Long id) {
+    	float a=absenceRepository.countall(sid,id);
+        return a;
     }
+
+	@Override
+	public float countHours(List<Absence> absences) {
+		
+		return absenceRepository.count();
+	}
+
+
 
 }
