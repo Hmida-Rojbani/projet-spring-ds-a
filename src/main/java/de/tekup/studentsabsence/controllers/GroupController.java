@@ -24,10 +24,10 @@ import java.util.List;
 @RequestMapping("/groups")
 @AllArgsConstructor
 public class GroupController {
-    private final GroupService groupService;
-    private final SubjectService subjectService;
-    private final GroupSubjectService groupSubjectService;
-    private final AbsenceService absenceService;
+    private final GroupService groupService = null;
+    private final SubjectService subjectService = null;
+    private final GroupSubjectService groupSubjectService = null;
+    private final AbsenceService absenceService = null;
 
     @GetMapping({"", "/"})
     public String index(Model model) {
@@ -90,12 +90,20 @@ public class GroupController {
         model.addAttribute("students",group.getStudents());
         model.addAttribute("absenceService", absenceService);
 
-        group.getStudents().forEach(student -> {
+        extracted(group).forEach(student -> {
 
         });
 
         return "groups/show";
     }
+
+	private Iterable<Group> extracted(Group group) {
+		return extracted(group);
+	}
+
+	private Iterable<Group> extracted(Group group) {
+		return (Iterable<Group>) group.getStudents();
+	}
 
     @GetMapping("/{id}/add-subject")
     public String addSubjectView(Model model , @PathVariable Long id){

@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class GroupServiceImp implements GroupService {
-    private final GroupRepository groupRepository;
+    private final GroupRepository groupRepository = null;
 
     @Override
     public List<Group> getAllGroups() {

@@ -12,7 +12,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GroupSubject implements Serializable {
-    @EmbeddedId
+    public GroupSubject(GroupSubjectKey groupSubjectKey, Group group2, Subject subject2, float hours2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@EmbeddedId
     private GroupSubjectKey id;
 
     @ManyToOne

@@ -24,10 +24,8 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/students")
 public class StudentController {
-    private final StudentService studentService;
-    private final GroupService groupService;
-    private final ImageService imageService;
-
+    private final StudentService studentService = null;
+    private final GroupService groupService = null;
     @GetMapping({"", "/"})
     public String index(Model model) {
         List<Student> students = studentService.getAllStudents();

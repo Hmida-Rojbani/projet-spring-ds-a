@@ -17,8 +17,8 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class GroupSubjectServiceImp implements GroupSubjectService {
-    private final GroupSubjectRepository groupSubjectRepository;
-    private final GroupService groupService;
+    private final GroupSubjectRepository groupSubjectRepository = null;
+    private final GroupService groupService = null;
 
     @Override
     public void addSubjectToGroup(Group group, Subject subject, float hours) {

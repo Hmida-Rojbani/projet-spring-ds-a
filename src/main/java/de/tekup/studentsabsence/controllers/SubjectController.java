@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/subjects")
 @AllArgsConstructor
 public class SubjectController {
-    private final SubjectService subjectService;
+    private final SubjectService subjectService = null;
 
     @GetMapping({"", "/"})
     public String index(Model model) {
