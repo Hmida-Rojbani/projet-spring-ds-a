@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-@Entity
+@Entity(name="subject")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

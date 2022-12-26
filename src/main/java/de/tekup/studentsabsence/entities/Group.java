@@ -7,10 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-@Entity
+@Entity(name="group")
 @Data
 @ToString(exclude = "students")
 @AllArgsConstructor
@@ -29,8 +31,9 @@ public class Group {
     @NotNull(message = "Speciality is required")
     @Enumerated(EnumType.STRING)
     private SpecialityEnum speciality;
-    //TODO Complete Relations with other entities
-
+ 
+    @OneToMany
+    private List<Student> student;
 
 
 }

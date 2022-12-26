@@ -38,7 +38,8 @@ public class GroupSubjectServiceImp implements GroupSubjectService {
 
     @Override
     public void deleteSubjectFromGroup(Long gid, Long sid) {
-        //TODO find a groupSubject by Group Id and Subject Id
+       
+    	groupSubjectRepository.findAllByGroup_idAndSubject_Id(gid,sid);
         GroupSubject groupSubject = null;
 
         groupSubjectRepository.delete(groupSubject);
