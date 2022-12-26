@@ -3,6 +3,7 @@ package de.tekup.studentsabsence.services;
 import de.tekup.studentsabsence.entities.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentService {
     List<Student> getAllStudents();
@@ -13,5 +14,5 @@ public interface StudentService {
 
     Student updateStudent(Student student);
 
-    Student deleteStudent(Long sid);
+    Optional<Student> deleteStudent(Long sid);
 }
