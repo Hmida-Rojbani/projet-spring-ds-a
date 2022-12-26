@@ -13,36 +13,41 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class StudentServiceImp implements StudentService {
-    private final StudentRepository studentRepository;
+	private final StudentRepository studentRepository;
 
-    @Override
-    public List<Student> getAllStudents() {
-        List<Student> students = new ArrayList<>();
-        studentRepository.findAll().forEach(students::add);
-        return students;
-    }
+	@Override
+	public List<Student> getAllStudents() {
+		List<Student> students = new ArrayList<>();
+		studentRepository.findAll().forEach(students::add);
+		return students;
+	}
 
-    @Override
-    public Student getStudentBySid(Long sid) {
-        return studentRepository.findById(sid).
-                orElseThrow(() -> new NoSuchElementException("No Student With SID: " + sid));
-    }
+	@Override
+	public Student getStudentBySid(Long sid) {
+		return studentRepository.findById(sid)
+				.orElseThrow(() -> new NoSuchElementException("No Student With SID: " + sid));
+	}
 
-    @Override
-    public Student addStudent(Student student) {
-        return studentRepository.save(student);
+	@Override
+	public Student addStudent(Student student) {
+		return studentRepository.save(student);
 
-    }
+	}
 
-    //TODO Complete this method
-    @Override
-    public Student updateStudent(Student student) {
-        return null;
-    }
+	// TODO Complete this method
+	@Override
+	public Student updateStudent(Student student) {
+		if (!studentRepository.existsById(student.getSid())) {
+			throw new NoSuchElementException("No Studnet With ID: " + student.getSid());
+		}
+		return null;
+	}
 
-    //TODO Complete this method
-    @Override
-    public Student deleteStudent(Long sid) {
-        return null;
-    }
+	// TODO Complete this method
+	@Override
+	public Student deleteStudent(Long sid) {
+		Student student = getStudentBySid(sid);
+		studentRepository.delete(student);
+		return student;
+	}
 }

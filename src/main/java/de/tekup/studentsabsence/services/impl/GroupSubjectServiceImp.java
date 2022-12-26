@@ -12,36 +12,31 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
 public class GroupSubjectServiceImp implements GroupSubjectService {
-    private final GroupSubjectRepository groupSubjectRepository;
-    private final GroupService groupService;
+	private final GroupSubjectRepository groupSubjectRepository;
+	private final GroupService groupService;
 
-    @Override
-    public void addSubjectToGroup(Group group, Subject subject, float hours) {
-        groupSubjectRepository.save(new GroupSubject(
-                new GroupSubjectKey(group.getId(),subject.getId()),
-                group,
-                subject,
-                hours
-        ));
-    }
+	@Override
+	public void addSubjectToGroup(Group group, Subject subject, float hours) {
+		groupSubjectRepository
+				.save(new GroupSubject(new GroupSubjectKey(group.getId(), subject.getId()), group, subject, hours));
+	}
 
-    @Override
-    public List<GroupSubject> getSubjectsByGroupId(Long id) {
-        Group group = groupService.getGroupById(id);
-        return new ArrayList<>(groupSubjectRepository.findAllByGroup(group));
-    }
+	@Override
+	public List<GroupSubject> getSubjectsByGroupId(Long id) {
+		Group group = groupService.getGroupById(id);
+		return new ArrayList<>(groupSubjectRepository.findAllByGroup(group));
+	}
 
-    @Override
-    public void deleteSubjectFromGroup(Long gid, Long sid) {
-        //TODO find a groupSubject by Group Id and Subject Id
-        GroupSubject groupSubject = null;
+	@Override
+	public void deleteSubjectFromGroup(Long gid, Long sid) {
+		// TODO find a groupSubject by Group Id and Subject Id
+		GroupSubject groupSubject = groupSubjectRepository.findByGroupIdAndSubjectId(gid, sid);
 
-        groupSubjectRepository.delete(groupSubject);
-    }
+		groupSubjectRepository.delete(groupSubject);
+	}
 
 }

@@ -13,41 +13,43 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class SubjectServiceImp implements SubjectService {
-    private final SubjectRepository subjectRepository;
+	private final SubjectRepository subjectRepository;
 
-    //TODO Complete this method
-    @Override
-    public List<Subject> getAllSubjects() {
-        return null;
-    }
+	// TODO Complete this method
+	@Override
+	public List<Subject> getAllSubjects() {
+		List<Subject> subjects = new ArrayList<Subject>();
+		subjectRepository.findAll().forEach(s -> {
+			subjects.add(s);
+		});
+		return subjects;
+	}
 
-    @Override
-    public Subject getSubjectById(Long id) {
-        return subjectRepository.findById(id).
-                orElseThrow(() -> new NoSuchElementException("No Subject with ID: " + id));
+	@Override
+	public Subject getSubjectById(Long id) {
+		return subjectRepository.findById(id)
+				.orElseThrow(() -> new NoSuchElementException("No Subject with ID: " + id));
 
-    }
+	}
 
-    @Override
-    public Subject addSubject(Subject subject) {
-        return subjectRepository.save(subject);
-    }
+	@Override
+	public Subject addSubject(Subject subject) {
+		return subjectRepository.save(subject);
+	}
 
-    @Override
-    public Subject updateSubject(Subject subject) {
-        if (!subjectRepository.existsById(subject.getId())) {
-            throw new NoSuchElementException("No Subject with ID : " + subject.getId());
-        }
-        return subjectRepository.save(subject);
-    }
+	@Override
+	public Subject updateSubject(Subject subject) {
+		if (!subjectRepository.existsById(subject.getId())) {
+			throw new NoSuchElementException("No Subject with ID : " + subject.getId());
+		}
+		return subjectRepository.save(subject);
+	}
 
-    @Override
-    public Subject deleteSubject(Long id) {
-        Subject subject = getSubjectById(id);
-        subjectRepository.delete(subject);
-        return subject;
-    }
-
+	@Override
+	public Subject deleteSubject(Long id) {
+		Subject subject = getSubjectById(id);
+		subjectRepository.delete(subject);
+		return subject;
+	}
 
 }
-

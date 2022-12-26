@@ -17,17 +17,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Absence implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotNull(message = "Start date is required")
-    @Past(message = "Should be a date in the past")
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-    private LocalDateTime startDate;
-    @NotNull(message = "Hours is required")
-    @Positive(message = "Should be positive")
-    private float hours;
-   //TODO Complete Relations with other entities
 
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@NotNull(message = "Start date is required")
+	@Past(message = "Should be a date in the past")
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+	private LocalDateTime startDate;
+	@NotNull(message = "Hours is required")
+	@Positive(message = "Should be positive")
+	private float hours;
+	// TODO Complete Relations with other entities
+
+	@ManyToOne
+	private Student student;
+
+	@OneToOne
+	private Subject subject;
 
 }
