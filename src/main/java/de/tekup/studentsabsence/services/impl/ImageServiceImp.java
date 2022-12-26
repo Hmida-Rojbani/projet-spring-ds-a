@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class ImageServiceImp implements ImageService {
-    private final ImageRepository imageRepository;
+    private final ImageRepository imageRepository = null;
 
     //TODO Complete this method
     @Override

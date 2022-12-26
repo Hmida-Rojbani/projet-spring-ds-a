@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class StudentServiceImp implements StudentService {
-    private final StudentRepository studentRepository;
+    private final StudentRepository studentRepository = null;
 
     @Override
     public List<Student> getAllStudents() {

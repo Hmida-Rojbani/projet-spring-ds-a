@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class SubjectServiceImp implements SubjectService {
-    private final SubjectRepository subjectRepository;
+    private final SubjectRepository subjectRepository = null;
 
     //TODO Complete this method
     @Override

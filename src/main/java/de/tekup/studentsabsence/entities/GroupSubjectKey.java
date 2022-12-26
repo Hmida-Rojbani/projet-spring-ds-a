@@ -12,7 +12,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GroupSubjectKey implements Serializable {
-    @Column(name = "group_id")
+    public GroupSubjectKey(Long id, Object id2) {
+		// TODO Auto-generated constructor stub
+	}
+	@Column(name = "group_id")
     private Long groupId ;
     @Column(name = "subject_id")
     private Long subjectId;

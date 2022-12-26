@@ -27,6 +27,10 @@ public class Student implements Serializable {
     private String phone;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dob;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
     //TODO Complete Relations with other entities
 

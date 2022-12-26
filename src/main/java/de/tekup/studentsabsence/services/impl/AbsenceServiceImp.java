@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class AbsenceServiceImp implements AbsenceService {
-    private final AbsenceRepository absenceRepository;
+    private final AbsenceRepository absenceRepository = null;
 
     @Override
     public List<Absence> getAllAbsences() {

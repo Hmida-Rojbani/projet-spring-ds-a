@@ -17,4 +17,12 @@ public class GroupSubjectHolder {
     @NotNull(message = "Hours is required")
     @Positive(message = "Should be positive")
     private float hours;
+	public Subject getSubject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public float getHours() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

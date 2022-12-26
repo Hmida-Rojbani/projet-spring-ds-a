@@ -30,6 +30,14 @@ public class Group {
     @Enumerated(EnumType.STRING)
     private SpecialityEnum speciality;
     //TODO Complete Relations with other entities
+	public Object getStudents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 
