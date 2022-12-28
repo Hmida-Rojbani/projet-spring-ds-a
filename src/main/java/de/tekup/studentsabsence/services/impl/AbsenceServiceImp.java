@@ -31,22 +31,25 @@ public class AbsenceServiceImp implements AbsenceService {
 
     @Override
     public List<Absence> getAllAbsencesByStudentId(Long sid) {
-        List<Absence> absences = new ArrayList<>();
+        List<Absence> absences =absenceRepository.findAllByStudent_Sid(sid);
         //TODO complete the missing instructions
         return absences;
     }
 
     @Override
     public List<Absence> getAllAbsencesByStudentIdAndSubjectId(Long sid, Long id) {
-        List<Absence> absences = new ArrayList<>();
-        //TODO complete the missing instructions
+        List<Absence> absences = absenceRepository.findAllByStudent_SidAndSubject_Id(sid,id);
+
         return absences;
     }
 
     @Override
     public List<Absence> getAllAbsencesByGroupIdAndSubjectId(Long gid, Long id) {
         List<Absence> absences = new ArrayList<>();
+        System.out.println(gid);
         absenceRepository.findAllByStudent_Group_IdAndSubject_Id(gid, id).forEach(absences::add);
+        System.out.println("#######################  abs#############################");
+        System.out.println(absences);
         return absences;
     }
 
@@ -57,6 +60,12 @@ public class AbsenceServiceImp implements AbsenceService {
 
     @Override
     public Absence addAbsence(Absence absence) {
+
+        System.out.println(absence);
+
+
+
+
         return absenceRepository.save(absence);
     }
 
@@ -82,12 +91,22 @@ public class AbsenceServiceImp implements AbsenceService {
     @Override
     public float hoursCountByStudentAndSubject(Long sid, Long id) {
         List<Absence> absences = getAllAbsencesByStudentIdAndSubjectId(sid, id);
+
+        System.out.println(absences);
         return countHours(absences);
     }
     //TODO Complete the countHours method
     public float countHours(List<Absence> absences) {
+        float count=0 ;
+        for (Absence absence:absences
+             ) {
+            count =count+absence.getHours();
+            
+        }
 
-        return 0;
+        System.out.println(count);
+
+        return count;
     }
 
 }
