@@ -98,6 +98,15 @@
                                             <td th:each="groupSubject : ${groupSubjects}"
                                                 th:text="${absenceService.hoursCountByGroupAndSubject(group.id, groupSubject.subject.id)+'h'}"></td>
                                         </tr>
+                                        <tr>
+                                            <th class="text-primary" >MaxAbsences</th>
+                                            <td ></td>
+                                        </tr>
+
+                                        <tr>
+                                            <th class="text-primary" >MinAbsences</th>
+                                            <td ></td>
+                                             </tr>
                                     </table>
                                 </div>
                             </div>

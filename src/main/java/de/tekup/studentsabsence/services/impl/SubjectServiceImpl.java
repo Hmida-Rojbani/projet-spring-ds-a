@@ -12,13 +12,14 @@ import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
-public class SubjectServiceImp implements SubjectService {
+public class SubjectServiceImpl implements SubjectService {
     private final SubjectRepository subjectRepository;
 
-    //TODO Complete this method
+    //TODO Complete this method OK
+    //Mariem Jaziri & Raja Ben Salem
     @Override
     public List<Subject> getAllSubjects() {
-        return null;
+        return (List<Subject>) subjectRepository.findAll();
     }
 
     @Override
