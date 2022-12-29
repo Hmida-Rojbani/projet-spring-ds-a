@@ -4,6 +4,7 @@ import de.tekup.studentsabsence.entities.Absence;
 import de.tekup.studentsabsence.repositories.AbsenceRepository;
 import de.tekup.studentsabsence.services.AbsenceService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,8 +13,10 @@ import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
-public class AbsenceServiceImp implements AbsenceService {
+public class AbsenceServiceImpl implements AbsenceService {
+
     private final AbsenceRepository absenceRepository;
+
 
     @Override
     public List<Absence> getAllAbsences() {
@@ -32,14 +35,18 @@ public class AbsenceServiceImp implements AbsenceService {
     @Override
     public List<Absence> getAllAbsencesByStudentId(Long sid) {
         List<Absence> absences = new ArrayList<>();
-        //TODO complete the missing instructions
+        absenceRepository.findAllByStudent_Sid(sid).forEach(absences::add);
+        //TODO complete the missing instructions OK
+        //Mariem Jaziri & Raja Ben Salem
         return absences;
     }
 
     @Override
     public List<Absence> getAllAbsencesByStudentIdAndSubjectId(Long sid, Long id) {
         List<Absence> absences = new ArrayList<>();
-        //TODO complete the missing instructions
+        absenceRepository.findAllByStudent_SidAndSubject_Id(sid,id).forEach(absences::add);
+        //TODO complete the missing instructions ok
+        //Mariem Jaziri & Raja Ben Salem
         return absences;
     }
 
@@ -85,9 +92,13 @@ public class AbsenceServiceImp implements AbsenceService {
         return countHours(absences);
     }
     //TODO Complete the countHours method
+    //Mariem Jaziri & Raja Ben Salem
     public float countHours(List<Absence> absences) {
-
-        return 0;
+        float count = 0;
+        for (Absence absence : absences)
+        {
+            count = count + absence.getHours();
+        }
+        return count;
     }
-
 }

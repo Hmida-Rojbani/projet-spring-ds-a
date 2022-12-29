@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
-public class StudentServiceImp implements StudentService {
+public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
 
     @Override
@@ -34,15 +34,21 @@ public class StudentServiceImp implements StudentService {
 
     }
 
-    //TODO Complete this method
+    //TODO Complete this method=ok
     @Override
     public Student updateStudent(Student student) {
-        return null;
+        if (!studentRepository.existsById(student.getSid())){
+            throw new NoSuchElementException(("No Student with ID"+ student.getSid()));
+        }
+        return studentRepository.save(student);
     }
 
-    //TODO Complete this method
+    //TODO Complete this method= ok
+    //Mariem Jaziri & Raja Ben Salem
     @Override
     public Student deleteStudent(Long sid) {
-        return null;
+        Student student= getStudentBySid(sid);
+        studentRepository.delete(student);
+        return student;
     }
 }

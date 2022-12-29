@@ -2,17 +2,20 @@ package de.tekup.studentsabsence.controllers;
 
 import de.tekup.studentsabsence.entities.Image;
 import de.tekup.studentsabsence.entities.Student;
+import de.tekup.studentsabsence.repositories.ImageRepository;
 import de.tekup.studentsabsence.services.GroupService;
 import de.tekup.studentsabsence.services.ImageService;
 import de.tekup.studentsabsence.services.StudentService;
 import lombok.AllArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
@@ -27,6 +30,7 @@ public class StudentController {
     private final StudentService studentService;
     private final GroupService groupService;
     private final ImageService imageService;
+    private final ImageRepository imageRepository;
 
     @GetMapping({"", "/"})
     public String index(Model model) {
@@ -90,9 +94,17 @@ public class StudentController {
     }
 
     @PostMapping("/{sid}/add-image")
-    //TODO complete the parameters of this method
-    public String addImage() {
-        //TODO complete the body of this method
+    //TODO complete the parameters of this method=ok
+    //Mariem Jaziri & Raja Ben Salem
+    public String addImage(HttpServletRequest request,@PathVariable("sid") long sid, @RequestParam("image") MultipartFile file) throws IOException {
+        //TODO complete the body of this method=ok
+        //Mariem Jaziri & Raja Ben Salem
+        Student student = studentService.getStudentBySid(sid);
+        Image img=imageService.addImage(file);
+
+        student.setImage(img);
+        studentService.updateStudent(student);
+
         return "redirect:/students";
     }
 
